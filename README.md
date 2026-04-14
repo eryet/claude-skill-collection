@@ -45,6 +45,23 @@ Once installed, invoke it in Claude Code:
 /waifu2x /path/to/folder        # batch mode
 ```
 
+## Statusline
+
+A custom Claude Code [statusline script](.claude/statusline.sh) that displays:
+
+- **Repo name** (cyan) or current directory if not in a git repo
+- **Context usage %** — color-coded green/yellow/red
+- **Cache indicator** — green dot for cache hit, red dot for miss
+
+### Install
+
+```bash
+# Copy to your Claude config
+cp .claude/statusline.sh ~/.claude/statusline.sh
+```
+
+Then set `"statusline": "~/.claude/statusline.sh"` in your Claude Code settings.
+
 ## Prerequisites
 
 Each skill may have its own external dependencies:
