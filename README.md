@@ -8,6 +8,7 @@ A collection of reusable [Claude Code](https://docs.anthropic.com/en/docs/claude
 
 | Skill | Description |
 |-------|-------------|
+| [background-removal](.claude/skills/background-removal/SKILL.md) | Remove the background from an image (file or folder) and write a transparent PNG. Auto-routes between corner flood-fill and `rembg` ML segmentation |
 | [generate-palette](.claude/skills/generate-palette/skill.md) | Generate professional, interactive SVG color palette reference sheets from a theme, URL, or hex colors |
 | [waifu2x](.claude/skills/waifu2x/SKILL.md) | Upscale images using waifu2x-ncnn-vulkan with configurable scale, noise, model, format, and tile size |
 
@@ -45,6 +46,15 @@ Once installed, invoke it in Claude Code:
 /waifu2x /path/to/folder        # batch mode
 ```
 
+#### `/background-removal`
+
+```
+/background-removal logo.png                      # single image, auto method
+/background-removal photo.jpg --method rembg      # force ML segmentation
+/background-removal /path/to/folder               # batch mode
+/background-removal logo.png --tolerance 45 --feather 2   # tune flood-fill
+```
+
 ## Statusline
 
 A custom Claude Code [statusline script](.claude/statusline.sh) that displays:
@@ -66,5 +76,6 @@ Then set `"statusline": "~/.claude/statusline.sh"` in your Claude Code settings.
 
 Each skill may have its own external dependencies:
 
+- **background-removal** - Requires Python 3.8+ with `Pillow` and `numpy`. The ML path additionally needs `rembg` and `onnxruntime` (`pip install --user rembg onnxruntime`); the ONNX model downloads to `~/.u2net/` on first use (~170 MB). `scipy` is optional but speeds up flood-fill on large images.
 - **generate-palette** - No external dependencies (uses built-in web tools for color research)
 - **waifu2x** - Requires [waifu2x-ncnn-vulkan](https://github.com/nihui/waifu2x-ncnn-vulkan) installed on your system
