@@ -6,6 +6,9 @@ input=$(cat)
 # Extract current directory
 cwd=$(echo "$input" | jq -r '.workspace.current_dir')
 
+# Extract current model name
+model=$(echo "$input" | jq -r '.model.display_name // "unknown"')
+
 # Extract context percentage
 ctx_pct=$(echo "$input" | jq -r '.context_window.used_percentage // 0' | cut -d. -f1)
 
@@ -33,8 +36,9 @@ if git -C "$cwd" rev-parse --git-dir > /dev/null 2>&1; then
     ctx_color='\033[01;32m' # green
   fi
 
-  printf '\033[01;36m%s\033[00m | ctx: %b%s%%\033[00m | cache: %b' \
-    "$repo_name" "$ctx_color" "$ctx_pct" "$cache_indicator"
+  printf '\033[01;36m%s\033[00m | \033[01;35m%s\033[00m | ctx: %b%s%%\033[00m | cache: %b' \
+    "$repo_name" "$model" "$ctx_color" "$ctx_pct" "$cache_indicator"
 else
-  printf '\033[01;36m%s\033[00m | ctx: %s%% | cache: %b' "$cwd" "$ctx_pct" "$cache_indicator"
+  printf '\033[01;36m%s\033[00m | \033[01;35m%s\033[00m | ctx: %s%% | cache: %b' \
+    "$cwd" "$model" "$ctx_pct" "$cache_indicator"
 fi
