@@ -1,7 +1,7 @@
 ---
 name: realupscale
 description: Upscale images locally with realcugan-ncnn-vulkan (illustration/anime) or realesrgan-ncnn-vulkan (photos/general). Cross-platform (Windows + macOS arm64 + Linux), supports single file or folder batch, with configurable scale, noise/model variant, format, and tile size.
-argument-hint: [-default] [image-path-or-folder]
+argument-hint: "[-default] [image-path-or-folder]"
 allowed-tools: Bash, Read, Glob, Write, AskUserQuestion
 ---
 

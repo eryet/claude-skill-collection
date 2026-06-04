@@ -1,7 +1,7 @@
 ---
 name: generate-palette
 description: Generate SVG Color Palette
-argument-hint: [theme description, URL, or hex colors]
+argument-hint: "[theme description, URL, or hex colors]"
 allowed-tools: WebSearch, WebFetch, Write, Read, Glob
 ---
 

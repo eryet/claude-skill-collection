@@ -1,7 +1,7 @@
 ---
 name: waifu2x
 description: Upscale images using waifu2x-ncnn-vulkan with configurable scale, noise, model, format, and tile size
-argument-hint: [-default] [image-path-or-folder]
+argument-hint: "[-default] [image-path-or-folder]"
 allowed-tools: Bash, Read, Glob
 ---
 

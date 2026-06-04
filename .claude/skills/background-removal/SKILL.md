@@ -1,7 +1,7 @@
 ---
 name: background-removal
 description: Remove the background from an image and produce a transparent PNG. Use this skill whenever the user asks to remove a background, make a background transparent, cut out a subject, create a transparent PNG from a non-transparent image, "knock out" the background, or get an image with only the subject and a transparent backdrop. Triggers on white-background logos and icons, screenshots that need their background dropped, product photos, portrait photos, text-on-solid-color images, and any phrasing like "make this transparent", "remove white background", "isolate the subject", or "give me a PNG without the background".
-argument-hint: [image-path-or-folder] [--method auto|flood|rembg]
+argument-hint: "[image-path-or-folder] [--method auto|flood|rembg]"
 allowed-tools: Bash, Read, Glob, AskUserQuestion
 ---
 
