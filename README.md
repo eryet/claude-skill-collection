@@ -69,6 +69,7 @@ Once installed, invoke it in Claude Code:
 A custom Claude Code [statusline script](.claude/statusline.sh) that displays:
 
 - **Repo name** (cyan) or current directory if not in a git repo
+- **Model name** (magenta) with the current **effort level** (blue, e.g. `[xhigh]`) next to it
 - **Context usage %** — color-coded green/yellow/red
 - **Cache indicator** — green dot for cache hit, red dot for miss
 
