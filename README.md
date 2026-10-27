@@ -73,14 +73,39 @@ A custom Claude Code [statusline script](.claude/statusline.sh) that displays:
 - **Context usage %** — color-coded green/yellow/red
 - **Cache indicator** — green dot for cache hit, red dot for miss
 
+A second line lists the project's running dev servers as clickable links (Ctrl+click on Windows, Cmd+click on macOS), for example `● astro http://localhost:4321   ● server http://127.0.0.1:4400`: a green dot for each running server, its name, and its URL in grey. A helper finds them in the background every few seconds: [statusline-servers.ps1](.claude/statusline-servers.ps1) on Windows (Git Bash), [statusline-servers.sh](.claude/statusline-servers.sh) on macOS and Linux. A listening port counts when the process behind it was started by the Claude Code session, through one of its shells (`pnpm dev`, `npm run dev`, `uvicorn` and the like, frontend and backend alike), or when it was started elsewhere but belongs to the project:
+
+- **Windows:** its command line names the project folder (`node_modules/.bin/vite`, `.venv/Scripts/python`).
+- **macOS and Linux:** it runs in the project folder or below it, which also catches a bare `node server.ts`.
+
+Claude Code's own MCP servers never count.
+
+For servers the scan can't see, such as Docker containers, list them in the project's `.claude/statusline-urls`, one per line, with or without a label:
+
+```
+# label url, or just a url
+api http://localhost:8000
+http://localhost:9000
+```
+
 ### Install
 
 ```bash
-# Copy to your Claude config
-cp .claude/statusline.sh ~/.claude/statusline.sh
+# Copy to your Claude config: the .ps1 is used on Windows, the .sh helper on macOS and Linux
+cp .claude/statusline.sh .claude/statusline-servers.ps1 .claude/statusline-servers.sh ~/.claude/
 ```
 
-Then set `"statusline": "~/.claude/statusline.sh"` in your Claude Code settings.
+Then point your Claude Code settings (`~/.claude/settings.json`) at it. `refreshInterval` re-runs it every 5 seconds, so servers appear and disappear without waiting for the next message:
+
+```json
+"statusLine": {
+  "type": "command",
+  "command": "bash ~/.claude/statusline.sh",
+  "refreshInterval": 5
+}
+```
+
+Requires `jq` (`brew install jq` on macOS). The server line uses Windows PowerShell on Windows, and `ps` and `lsof` on macOS and Linux (both built into macOS; some Linux distributions need `lsof` installed). Without them, or on other systems, the status line is the single line above. The scripts run under the bash 3.2 that ships with macOS. Links are clickable in terminals that support them, such as VS Code's, iTerm2, Windows Terminal, Kitty and WezTerm.
 
 ## Prerequisites
 
